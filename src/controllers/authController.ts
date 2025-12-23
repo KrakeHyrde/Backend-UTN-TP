@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs"
 import User from "../model/UserModel"
 import jwt from "jsonwebtoken"
 import dotenv from "dotenv"
+import { createUserSchema } from "../validators/userValidator"
 dotenv.config()
 
 const SECRET_KEY = process.env.JWT_SECRET!
@@ -18,7 +19,11 @@ class AuthController {
       if (!email || !password) {
         return res.status(400).json({ success: false, error: "Datos invalidos" })
       }
-
+      const dataToValidate = { email, password }
+      const validator = createUserSchema.safeParse(dataToValidate)
+      if (!validator.success) {
+        return res.status(400).json({ success: false, error: validator.error.flatten().fieldErrors });
+      }
       const user = await User.findOne({ email })
 
       if (user) {

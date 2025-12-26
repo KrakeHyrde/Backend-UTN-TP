@@ -28,7 +28,6 @@ class AuthController {
         return res.status(409).json({ success: false, error: "El usuario ya existe en la base de datos." })
       }
 
-      // crear el hash de la contraseña
       const hash = await bcrypt.hash(password, 10)
       const newUser = new User({ email, password: hash })
 
@@ -57,7 +56,6 @@ class AuthController {
         return res.status(401).json({ success: false, error: "No autorizado" })
       }
 
-      // validar la contraseña
       const isValid = await bcrypt.compare(password, user.password)
 
       if (!isValid) {

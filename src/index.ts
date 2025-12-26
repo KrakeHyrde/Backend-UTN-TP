@@ -1,4 +1,3 @@
-// LEVANTAR NUESTRO SERIVICIO Y CONFIGURACIONES GLOBALES
 import express, { Request, Response } from "express"
 import cors from "cors"
 import connectDB from "./config/mongodb"
@@ -44,18 +43,11 @@ app.get("/", (__: Request, res: Response) => {
 })
 
 app.use("/auth", authRouter)
-// http://localhost:3000/products?
 app.use("/products", productRouter)
-
-// enviar correo electrónico
 app.post("/email/send", emailService)
-
-// endpoint para el 404 - no se encuentra el recurso
 app.use((__, res) => {
   res.status(404).json({ success: false, error: "El recurso no se encuentra" })
 })
-
-// servidor en escucha
 app.listen(PORT, () => {
   console.log(`✅ Servidor en escucha en el puerto http://localhost:${PORT}`)
   connectDB()

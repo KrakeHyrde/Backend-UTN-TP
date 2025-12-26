@@ -9,9 +9,7 @@ dotenv.config()
 const SECRET_KEY = process.env.JWT_SECRET!
 
 class AuthController {
-  // http://localhost:3000/auth/register
-  // method: POST
-  // body: {"email": "gabi@gmail.com", "password": pepe123}
+
   static register = async (req: Request, res: Response): Promise<void | Response> => {
     try {
       const { email, password } = req.body

@@ -11,10 +11,10 @@ const emailService = async (req: Request, res: Response) => {
 
   try {
     const info = await transporter.sendMail({
-      from: `Mensaje de la tienda: ${emailUser}`,
-      to: process.env.EMAIL_USER,
+      from: `Mensaje de la tienda: ${process.env.EMAIL_USER}`,
+      to: emailUser,
       subject,
-      html: createTemplate(emailUser, message)
+      html: createTemplate(process.env.EMAIL_USER?process.env.EMAIL_USER:"Tienda", message)
     })
 
     res.json({ succes: true, message: "Correo fue enviado exitosamente", info })

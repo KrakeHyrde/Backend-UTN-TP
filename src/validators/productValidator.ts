@@ -6,7 +6,7 @@ const productSchemaValidator = z.object({
   price: z.number().min(10, "El valor debe ser mayor a 10"),
   category: z.string().min(2),
   stock: z.number().positive(),
-  image: z.string().default("No contiene imagen")
+  image: z.string().default("No contiene imagen").optional(),
 })
 
 export const createProductSchema = productSchemaValidator
